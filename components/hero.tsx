@@ -9,6 +9,7 @@ import AnimatedContent from './AnimatedContent'
 import homepageConfig from "@/data/homepage.json"
 import { PDFViewerModal } from "@/components/pdf-viewer-modal"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { RiskBlobButton } from "@/components/RiskBlobButton"
 
 interface HeroConfig {
   badge: {
@@ -256,6 +257,7 @@ export function Hero() {
           backgroundRepeat: "no-repeat",
         }}
       >
+        <RiskBlobButton />
         <PDFViewerModal
           isOpen={pdfModalOpen}
           onClose={() => setPdfModalOpen(false)}
@@ -353,6 +355,7 @@ export function Hero() {
         backgroundRepeat: 'no-repeat'
       }}
     >
+      <RiskBlobButton />
       <PDFViewerModal
         isOpen={pdfModalOpen}
         onClose={() => setPdfModalOpen(false)}
