@@ -9,6 +9,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { Toaster as SonnerToaster } from "sonner"
 import { AusnBlobButton } from "@/components/AusnBlobButton"
 import { CookieConsent } from "@/components/cookie-consent"
+import Metrika from "@/components/Metrika"
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] })
 
@@ -29,6 +30,9 @@ export default function RootLayout({
   
   return (
     <html lang="ru">
+      <head>
+        <Metrika />
+      </head>
       <body className={inter.className}>
           <Header />
           <AusnBlobButton />
