@@ -42,4 +42,5 @@ export const sendYandexMetric = (eventName: string, parameters?: Record<string, 
 export const YANDEX_METRICS_EVENTS = {
   QUIZ_COMPLETED: 'quiz_completed',
   QUIZ_TARIFF_COMPLETED: 'quiz_tariff_completed',
+  CALCULATOR_OPEN: 'calculator_open',
 } as const

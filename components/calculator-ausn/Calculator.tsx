@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Calculator as CalculatorIcon, TrendingDown, TrendingUp, DollarSign, AlertCircle } from "lucide-react"
 import { CalculatorForm } from "./CalculatorForm"
@@ -24,6 +24,18 @@ export function Calculator() {
   const [results, setResults] = useState<ComparisonResults | null>(null)
   const [eligibility, setEligibility] = useState<EligibilityCheck | null>(null)
   const [formData, setFormData] = useState<CalculatorFormData | null>(null)
+
+  // Отслеживание открытия калькулятора для Яндекс.Метрики
+  useEffect(() => {
+    if (typeof window !== 'undefined' && (window as any).ym) {
+      try {
+        (window as any).ym(105967457, 'reachGoal', 'calculator_open')
+        console.log('[Calculator] Яндекс.Метрика: событие calculator_open отправлено')
+      } catch (error) {
+        console.error('[Calculator] Ошибка отправки события в Яндекс.Метрику:', error)
+      }
+    }
+  }, [])
 
   // Обработка отправки формы
   const handleCalculate = (data: CalculatorFormData) => {
