@@ -48,11 +48,22 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error("[quiz-lead proxy] failed:", error)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    
+    // Более понятное сообщение об ошибке
+    let userMessage = "Сервер временно недоступен. Пожалуйста, попробуйте позже."
+    if (errorMessage.includes("ECONNREFUSED") || errorMessage.includes("fetch failed")) {
+      userMessage = "Не удалось подключиться к серверу. Проверьте подключение к интернету."
+    } else if (errorMessage.includes("timeout")) {
+      userMessage = "Превышено время ожидания ответа сервера. Попробуйте еще раз."
+    }
+    
     return NextResponse.json(
       {
         success: false,
         error: "PROXY_FAILED",
-        details: error instanceof Error ? error.message : String(error),
+        details: userMessage,
+        technical: process.env.NODE_ENV === "development" ? errorMessage : undefined,
       },
       { status: 500 }
     )

@@ -5,6 +5,7 @@ import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import InputMask from "react-input-mask"
 
@@ -303,8 +304,22 @@ export const QuizFinalStep = forwardRef<
       })
 
       if (!res.ok) {
-        const text = await res.text()
-        throw new Error(text || `HTTP ${res.status}`)
+        let errorMessage = `Ошибка ${res.status}`
+        try {
+          const contentType = res.headers.get("content-type") || ""
+          if (contentType.includes("application/json")) {
+            const errorData = await res.json()
+            errorMessage = errorData.error === "PROXY_FAILED" 
+              ? "Сервер временно недоступен. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону."
+              : errorData.details || errorData.error || errorMessage
+          } else {
+            const text = await res.text()
+            errorMessage = text || errorMessage
+          }
+        } catch (parseError) {
+          console.error("[QuizFinalStep] Failed to parse error response:", parseError)
+        }
+        throw new Error(errorMessage)
       }
 
       console.log("[QuizFinalStep] DEBUG ym:", {
@@ -350,14 +365,14 @@ export const QuizFinalStep = forwardRef<
   }
 
   return (
-    <div className="flex flex-col h-[600px] min-h-0">
-      <div className="flex-1 min-h-0 overflow-y-auto px-0 pt-2 pb-0 text-center max-w-lg mx-auto w-full flex flex-col items-stretch justify-start">
-        <h2 className="text-2xl font-bold mb-2 text-gray-900">{texts.title}</h2>
-        <p className="text-base text-gray-600 mb-4 leading-relaxed">{texts.subtitle}</p>
+    <div className="flex flex-col h-auto sm:h-[600px] min-h-0">
+      <div className="flex-1 min-h-0 overflow-y-auto px-0 pt-1 pb-0 text-center max-w-lg mx-auto w-full flex flex-col items-stretch justify-start">
+        <h2 className="text-sm sm:text-2xl font-bold mb-1 text-gray-900 leading-tight">{texts.title}</h2>
+        <p className="text-xs sm:text-base text-gray-600 mb-2 sm:mb-4 leading-relaxed">{texts.subtitle}</p>
 
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="text-left">
-            <Label htmlFor="quiz-final-email" className="text-sm text-gray-700">
+            <Label htmlFor="quiz-final-email" className="text-[10px] sm:text-sm text-gray-700">
               Email
             </Label>
             <Input
@@ -366,12 +381,12 @@ export const QuizFinalStep = forwardRef<
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
-              className="mt-1 text-center text-base py-3 border-2 border-gray-200 focus:border-cyan-400 rounded-2xl shadow-sm w-full"
+              className="mt-0.5 text-center text-xs sm:text-base py-1.5 sm:py-3 border-2 border-gray-200 focus:border-cyan-400 rounded-lg sm:rounded-2xl shadow-sm w-full"
             />
           </div>
 
           <div className="text-left">
-            <Label htmlFor="quiz-final-phone" className="text-sm text-gray-700">
+            <Label htmlFor="quiz-final-phone" className="text-[10px] sm:text-sm text-gray-700">
               Телефон (необязательно)
             </Label>
             <InputMask mask="+7 (999) 999-99-99" value={phone} onChange={(e) => setPhone(e.target.value)}>
@@ -381,39 +396,39 @@ export const QuizFinalStep = forwardRef<
                   id="quiz-final-phone"
                   type="tel"
                   placeholder="+7 (___) ___-__-__"
-                  className="mt-1 text-center text-base py-3 border-2 border-gray-200 focus:border-cyan-400 rounded-2xl shadow-sm w-full"
+                  className="mt-0.5 text-center text-xs sm:text-base py-1.5 sm:py-3 border-2 border-gray-200 focus:border-cyan-400 rounded-lg sm:rounded-2xl shadow-sm w-full"
                 />
               )}
             </InputMask>
           </div>
 
-          <div className="flex items-start space-x-2 mt-2 text-left">
+          <div className="flex items-start space-x-1.5 mt-1 text-left">
             <Checkbox
               id="quiz-final-consent-pd"
               checked={consentPd}
               onCheckedChange={(checked) => setConsentPd(checked === true || checked === "indeterminate")}
-              className="mt-1 text-cyan-600 border-2 border-cyan-300 w-5 h-5"
+              className="mt-0.5 text-cyan-600 border-2 border-cyan-300 w-3 h-3 sm:w-5 sm:h-5 flex-shrink-0"
             />
             <Label
               htmlFor="quiz-final-consent-pd"
-              className="cursor-pointer leading-relaxed text-gray-700"
+              className="cursor-pointer leading-relaxed text-[10px] sm:text-sm text-gray-700"
             >
               Я даю согласие на обработку персональных данных
             </Label>
           </div>
 
-          <div className="mt-3 text-left">
-            <div className="rounded-2xl border-2 border-cyan-300 bg-cyan-50/70 p-3 shadow-sm">
+          <div className="mt-2 text-left">
+            <div className="rounded-lg sm:rounded-2xl border-2 border-cyan-300 bg-cyan-50/70 p-1.5 sm:p-3 shadow-sm">
               <div className="flex items-center justify-between">
-                <Label className="text-sm text-gray-900 font-bold">{texts.giftLabel}</Label>
-                <span className="text-xs font-bold text-cyan-700 bg-white/70 border border-cyan-200 px-2 py-1 rounded-full">
+                <Label className="text-[10px] sm:text-sm text-gray-900 font-bold">{texts.giftLabel}</Label>
+                <span className="text-[8px] sm:text-xs font-bold text-cyan-700 bg-white/70 border border-cyan-200 px-1 sm:px-2 py-0.5 sm:py-1 rounded-full">
                   PDF
                 </span>
               </div>
               <select
                 value={giftPdfFilename}
                 onChange={(e) => setGiftPdfFilename(e.target.value)}
-                className="mt-2 w-full border-2 border-cyan-300 focus:border-cyan-500 rounded-2xl shadow-sm px-3 py-3 text-sm bg-white"
+                className="mt-1.5 w-full border-2 border-cyan-300 focus:border-cyan-500 rounded-lg sm:rounded-2xl shadow-sm px-1.5 sm:px-3 py-1.5 sm:py-3 text-[10px] sm:text-sm bg-white"
               >
                 {resolvedGiftOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -426,9 +441,23 @@ export const QuizFinalStep = forwardRef<
         </div>
       </div>
 
-      <div className="shrink-0 bg-white pt-2 pb-2">
-        <div className="bg-gray-50 rounded-2xl p-4 text-center mt-2">
-          <p className="text-xs font-bold text-gray-900 uppercase tracking-wide">БЕЗОПАСНО И КОНФИДЕНЦИАЛЬНО</p>
+      {/* Кнопка отправки */}
+      <div className="shrink-0 bg-white pt-2 pb-2 px-2 sm:px-0">
+        <Button
+          onClick={handleSubmit}
+          disabled={!canSubmit || isSubmitting}
+          className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white w-full rounded-lg sm:rounded-xl font-bold text-xs sm:text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 border-2 border-orange-400 hover:border-orange-300 whitespace-normal leading-tight text-center min-h-[44px] sm:min-h-[96px] py-2 sm:py-6"
+          style={{
+            boxShadow: '0 10px 25px rgba(249, 115, 22, 0.4), 0 4px 10px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          }}
+        >
+          {isSubmitting ? "Отправляем..." : "ПОЛУЧИТЬ ПОДАРОК И КУПОН"}
+        </Button>
+      </div>
+
+      <div className="shrink-0 bg-white pt-1 pb-1">
+        <div className="bg-gray-50 rounded-lg sm:rounded-2xl p-1 sm:p-4 text-center mt-1">
+          <p className="text-[8px] sm:text-xs font-bold text-gray-900 uppercase tracking-wide">БЕЗОПАСНО И КОНФИДЕНЦИАЛЬНО</p>
         </div>
       </div>
     </div>

@@ -131,32 +131,32 @@ function QuizSidebar({
   isSubmitting: boolean
 }) {
   return (
-         <div className="w-80 bg-amber-100 px-6 py-6 border-l border-amber-200 flex flex-col justify-between items-center">
+         <div className="w-full sm:w-80 bg-amber-100 px-2 py-2 sm:px-6 sm:py-6 border-t sm:border-t-0 sm:border-l border-amber-200 flex flex-col justify-between items-center overflow-y-auto">
       <style dangerouslySetInnerHTML={{ __html: discountCardAnimation }} />
       <div className="w-full flex flex-col items-center">
-        <div className={`rounded-2xl flex flex-col items-center mb-3 min-h-[80px] max-h-[100px] p-2 w-full ${calculateDiscount() > 0 ? 'discount-card-animate' : 'bg-white shadow-md'}`}>
-          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-cyan-100 mb-1">
-            <span className="text-xl text-cyan-500">₽</span>
+        <div className={`rounded-lg sm:rounded-2xl flex flex-col items-center mb-2 min-h-[50px] sm:min-h-[80px] max-h-[60px] sm:max-h-[100px] p-1.5 sm:p-2 w-full ${calculateDiscount() > 0 ? 'discount-card-animate' : 'bg-white shadow-md'}`}>
+          <div className="flex items-center justify-center w-4 h-4 sm:w-8 sm:h-8 rounded-full bg-cyan-100 mb-0.5">
+            <span className="text-xs sm:text-xl text-cyan-500">₽</span>
           </div>
-          <div className="text-xs text-gray-500 mb-0.5 leading-tight">Ваша скидка</div>
-          <div className="text-lg font-bold text-cyan-500 mb-0.5 leading-tight break-words max-w-[90%] text-center">{calculateDiscount().toLocaleString()} ₽</div>
-          <div className="text-[10px] text-gray-400 leading-tight text-center break-words max-w-[90%] whitespace-pre-line">на первый месяц\nобслуживания</div>
+          <div className="text-[8px] sm:text-xs text-gray-500 mb-0.5 leading-tight">Ваша скидка</div>
+          <div className="text-xs sm:text-lg font-bold text-cyan-500 mb-0.5 leading-tight break-words max-w-[90%] text-center">{calculateDiscount().toLocaleString()} ₽</div>
+          <div className="text-[7px] sm:text-[10px] text-gray-400 leading-tight text-center break-words max-w-[90%] whitespace-pre-line">на первый месяц\nобслуживания</div>
         </div>
-        <div className="bg-white rounded-2xl shadow-md flex flex-col items-center p-3 w-full">
-          <div className="text-sm font-bold mb-1 text-gray-900">Бонусы в подарок:</div>
-          <div className="flex gap-1 mt-1 justify-center items-center w-full">
+        <div className="bg-white rounded-lg sm:rounded-2xl shadow-md flex flex-col items-center p-1.5 sm:p-3 w-full">
+          <div className="text-[10px] sm:text-sm font-bold mb-0.5 text-gray-900">Бонусы в подарок:</div>
+          <div className="flex gap-1 sm:gap-1 mt-0.5 justify-center items-center w-full flex-wrap sm:flex-nowrap">
             {bonuses.map((bonus, idx) => (
                              <div
                  key={bonus}
-                 className="flex flex-col items-center bg-green-200 rounded-xl shadow min-w-[120px] max-w-[120px] min-h-[100px] max-h-[100px] justify-center p-1"
-                 style={{ flex: '0 0 120px' }}
+                 className="flex flex-col items-center bg-green-200 rounded-md sm:rounded-xl shadow min-w-[70px] sm:min-w-[120px] max-w-[70px] sm:max-w-[120px] min-h-[55px] sm:min-h-[100px] max-h-[55px] sm:max-h-[100px] justify-center p-0.5 sm:p-1"
+                 style={{ flex: '0 0 auto' }}
                >
                 <span
-                  className={`w-8 h-8 flex items-center justify-center rounded-full text-white text-xl mb-1 ${idx === 0 ? 'bg-orange-500' : 'bg-cyan-500'}`}
+                  className={`w-4 h-4 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-white text-xs sm:text-xl mb-0.5 ${idx === 0 ? 'bg-orange-500' : 'bg-cyan-500'}`}
                 >
                   {idx === 0 ? '🎁' : '💡'}
                 </span>
-                <span className="text-xs text-gray-900 text-center font-bold leading-tight">
+                <span className="text-[8px] sm:text-xs text-gray-900 text-center font-bold leading-tight px-0.5">
                   {bonus}
                 </span>
               </div>
@@ -168,7 +168,7 @@ function QuizSidebar({
           <Button
             onClick={handleSubmit}
             disabled={!canSubmit || isSubmitting}
-            className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white w-full mt-4 rounded-xl font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 border-2 border-orange-400 hover:border-orange-300 whitespace-normal leading-tight text-center min-h-[96px] py-6"
+            className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white w-full mt-2 rounded-lg sm:rounded-xl font-bold text-[10px] sm:text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 border-2 border-orange-400 hover:border-orange-300 whitespace-normal leading-tight text-center min-h-[50px] sm:min-h-[96px] py-2 sm:py-6"
             style={{
               boxShadow: '0 10px 25px rgba(249, 115, 22, 0.4), 0 4px 10px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
             }}
@@ -182,10 +182,10 @@ function QuizSidebar({
         <Button
           onClick={handleNext}
           disabled={!canProceed}
-          className="bg-cyan-500 hover:bg-cyan-600 text-white w-full mt-4 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all"
+          className="bg-cyan-500 hover:bg-cyan-600 text-white w-full mt-2 py-1.5 sm:py-3 rounded-lg sm:rounded-xl font-medium text-xs sm:text-base shadow-lg hover:shadow-xl transition-all"
         >
           Далее
-          <ArrowRight className="ml-2 h-5 w-5" />
+          <ArrowRight className="ml-1 h-3 w-3 sm:h-5 sm:w-5" />
         </Button>
       ) : null}
     </div>
@@ -617,7 +617,7 @@ export function QuizModal({ open, onOpenChange }: { open?: boolean, onOpenChange
       <Dialog open={!!(open !== undefined ? open : isOpen)} onOpenChange={onOpenChange || closeContactForm}>
         <DialogTitle className="sr-only">Квиз для получения скидки</DialogTitle>
         <DialogDescription className="sr-only">Пройдите квиз, чтобы получить персональную скидку на бухгалтерские услуги</DialogDescription>
-        <DialogContent className="max-w-4xl h-[90vh] max-h-[800px] p-0 overflow-hidden border-0 shadow-2xl" style={{
+        <DialogContent className="max-w-4xl w-full h-[100vh] max-h-[100vh] sm:h-[90vh] sm:max-h-[800px] p-0 overflow-hidden border-0 shadow-2xl m-0 rounded-none sm:rounded-lg sm:left-[50%] sm:top-[50%] sm:translate-x-[-50%] sm:translate-y-[-50%] left-0 top-0 translate-x-0 translate-y-0" style={{
            backgroundImage: 'url("/quiz-background.jpg")',
            backgroundSize: 'cover',
            backgroundPosition: 'center',
@@ -628,27 +628,34 @@ export function QuizModal({ open, onOpenChange }: { open?: boolean, onOpenChange
              <div className="absolute inset-0 bg-white/90 backdrop-blur-sm"></div>
              <div className="relative z-10 h-full flex flex-col">
             {/* Header */}
-            <div className="bg-white px-12 py-8 text-center border-b border-gray-100">
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <div className="bg-white px-2 py-2 sm:px-12 sm:py-8 text-center border-b border-gray-100 relative">
+              <button 
+                onClick={() => (onOpenChange || closeContactForm)(false)} 
+                className="absolute top-1 right-1 sm:hidden text-gray-400 hover:text-gray-700 z-20"
+                aria-label="Закрыть"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              <h1 className="text-sm sm:text-2xl font-bold text-gray-900 mb-1 leading-tight pr-6 sm:pr-0">
                 Пройдите короткий опрос и получите подарок и бонусы
               </h1>
-              <p className="text-gray-500">Всего 4 вопроса — 2 минуты вашего времени</p>
+              <p className="text-xs sm:text-base text-gray-500">Всего 4 вопроса — 2 минуты вашего времени</p>
             </div>
 
-            <div className="flex flex-1 overflow-hidden">
+            <div className="flex flex-col sm:flex-row flex-1 overflow-hidden">
               {/* Left side - Questions */}
-                             <div className="flex-1 px-12 py-8 flex flex-col bg-amber-50">
+                             <div className="flex-1 px-2 py-2 sm:px-12 sm:py-8 flex flex-col bg-amber-50 overflow-y-auto">
                 {/* Progress */}
-                <div className="mb-12">
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-sm text-gray-400">
+                <div className="mb-2 sm:mb-12">
+                  <div className="flex justify-between items-center mb-1 sm:mb-4">
+                    <span className="text-[10px] sm:text-sm text-gray-400">
                       Шаг {currentStep + 1} из {totalSteps}
                     </span>
-                    <span className="text-sm font-medium text-cyan-500">{Math.round(progress)}%</span>
+                    <span className="text-[10px] sm:text-sm font-medium text-cyan-500">{Math.round(progress)}%</span>
                   </div>
-                  <div className="w-full bg-gray-100 rounded-full h-1">
+                  <div className="w-full bg-gray-100 rounded-full h-0.5 sm:h-1">
                     <div
-                      className="bg-cyan-400 h-1 rounded-full transition-all duration-500 ease-out"
+                      className="bg-cyan-400 h-0.5 sm:h-1 rounded-full transition-all duration-500 ease-out"
                       style={{ width: `${progress}%` }}
                     />
                   </div>
@@ -657,17 +664,17 @@ export function QuizModal({ open, onOpenChange }: { open?: boolean, onOpenChange
                 {/* Question or Phone Step */}
                 {!isPhoneStep ? (
                   <>
-                    <div className="flex flex-col px-0 py-0 overflow-y-auto max-h-[60vh]">
-                      <h2 className="text-2xl font-bold mb-6 mt-2 text-gray-900 leading-tight">{currentQuestion.title}</h2>
+                    <div className="flex flex-col px-0 py-0 overflow-y-auto max-h-[50vh] sm:max-h-[60vh]">
+                      <h2 className="text-sm sm:text-2xl font-bold mb-2 sm:mb-6 mt-1 text-gray-900 leading-tight">{currentQuestion.title}</h2>
 
                       {currentQuestion.type === "single" ? (
-                        <div className="space-y-4">
+                        <div className="space-y-2 sm:space-y-4">
                           {currentQuestion.options.map((option) => (
                             <div
                               key={option.value}
-                              className="group relative bg-cyan-50 border border-gray-200 rounded-lg p-6 hover:border-cyan-300 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                              className="group relative bg-cyan-50 border border-gray-200 rounded-md sm:rounded-lg p-2 sm:p-6 hover:border-cyan-300 hover:shadow-lg transition-all duration-200 cursor-pointer"
                             >
-                              <div className="flex items-center space-x-4">
+                              <div className="flex items-center space-x-2 sm:space-x-4">
                                 <input
                                   type="radio"
                                   id={option.value}
@@ -675,11 +682,11 @@ export function QuizModal({ open, onOpenChange }: { open?: boolean, onOpenChange
                                   value={option.value}
                                   checked={!Array.isArray(currentAnswer?.answer) && currentAnswer?.answer === option.value}
                                   onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}
-                                  className="text-cyan-500 border-2 border-gray-300 w-5 h-5"
+                                  className="text-cyan-500 border-2 border-gray-300 w-3 h-3 sm:w-5 sm:h-5 flex-shrink-0"
                                 />
                                                                  <Label
                                    htmlFor={option.value}
-                                   className="text-lg cursor-pointer text-gray-700 flex-1 font-normal"
+                                   className="text-xs sm:text-lg cursor-pointer text-gray-700 flex-1 font-normal leading-tight break-words"
                                  >
                                    {option.label}
                                  </Label>
@@ -688,22 +695,22 @@ export function QuizModal({ open, onOpenChange }: { open?: boolean, onOpenChange
                           ))}
                         </div>
                       ) : (
-                        <div className="space-y-4">
+                        <div className="space-y-2 sm:space-y-4">
                           {currentQuestion.options.map((option) => (
                             <div
                               key={option.value}
-                              className="group relative bg-cyan-50 border border-gray-200 rounded-lg p-6 hover:border-cyan-300 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                              className="group relative bg-cyan-50 border border-gray-200 rounded-md sm:rounded-lg p-2 sm:p-6 hover:border-cyan-300 hover:shadow-lg transition-all duration-200 cursor-pointer"
                             >
-                              <div className="flex items-center space-x-4">
+                              <div className="flex items-center space-x-2 sm:space-x-4">
                                 <Checkbox
                                   id={option.value}
                                   checked={!!(Array.isArray(currentAnswer?.answer) && currentAnswer.answer.includes(option.value))}
                                   onCheckedChange={(checked) => handleOptionCheckedChange(currentQuestion.id, option.value, checked)}
-                                  className="text-cyan-500 border-2 border-gray-300 w-5 h-5 rounded"
+                                  className="text-cyan-500 border-2 border-gray-300 w-3 h-3 sm:w-5 sm:h-5 rounded flex-shrink-0"
                                 />
                                                                  <Label
                                    htmlFor={option.value}
-                                   className="text-lg cursor-pointer text-gray-700 flex-1 font-normal"
+                                   className="text-xs sm:text-lg cursor-pointer text-gray-700 flex-1 font-normal leading-tight break-words"
                                  >
                                    {option.label}
                                  </Label>
@@ -714,14 +721,14 @@ export function QuizModal({ open, onOpenChange }: { open?: boolean, onOpenChange
                       )}
                     </div>
                     {/* Navigation */}
-                    <div className="flex justify-between items-center mt-6 pt-4">
+                    <div className="flex justify-between items-center mt-2 sm:mt-6 pt-2 sm:pt-4">
                       <Button
                         variant="ghost"
                         onClick={handleBack}
                         disabled={currentStep === 0}
-                        className="flex items-center text-gray-500 hover:text-gray-700 px-6 py-3 rounded-xl"
+                        className="flex items-center text-gray-500 hover:text-gray-700 px-2 py-1 sm:px-6 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-base"
                       >
-                        <ArrowLeft className="mr-2 h-5 w-5" />
+                        <ArrowLeft className="mr-1 h-3 w-3 sm:h-5 sm:w-5" />
                         Назад
                       </Button>
                     </div>
@@ -774,20 +781,20 @@ export function QuizModal({ open, onOpenChange }: { open?: boolean, onOpenChange
       <Dialog open={showThanks} onOpenChange={handleThanksOpenChange}>
         <DialogTitle className="sr-only">Благодарность за прохождение квиза</DialogTitle>
         <DialogDescription className="sr-only">Ваш купон сохранен, мы свяжемся с вами</DialogDescription>
-        <DialogContent className="max-w-md p-8 text-center flex flex-col items-center justify-center">
-          <button onClick={() => handleThanksOpenChange(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"><X className="w-6 h-6" /></button>
-          <h2 className="text-2xl font-bold mb-4 text-green-700">Спасибо за уделенное время!</h2>
-          <p className="text-base text-gray-700 mb-4">
+        <DialogContent className="max-w-md w-full p-4 sm:p-8 text-center flex flex-col items-center justify-center m-4 sm:m-0">
+          <button onClick={() => handleThanksOpenChange(false)} className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-gray-700"><X className="w-5 h-5 sm:w-6 sm:h-6" /></button>
+          <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-green-700 leading-tight">Спасибо за уделенное время!</h2>
+          <p className="text-sm sm:text-base text-gray-700 mb-3 sm:mb-4 leading-relaxed">
             Коммерческое предложение и подарок отправлены на ваш email, проверьте почту.
           </p>
           {coupon && (
-            <div className="bg-gray-100 rounded-xl p-4 mb-4 w-full">
-              <div className="text-sm text-gray-500 mb-1">Ваш купон на скидку:</div>
-              <div className="text-lg font-mono font-bold text-purple-700 mb-1 select-all">{coupon}</div>
-              <Button size="sm" variant="outline" onClick={() => {navigator.clipboard.writeText(coupon)}}>Скопировать</Button>
+            <div className="bg-gray-100 rounded-xl p-3 sm:p-4 mb-3 sm:mb-4 w-full">
+              <div className="text-xs sm:text-sm text-gray-500 mb-1">Ваш купон на скидку:</div>
+              <div className="text-base sm:text-lg font-mono font-bold text-purple-700 mb-2 sm:mb-1 select-all break-all">{coupon}</div>
+              <Button size="sm" variant="outline" onClick={() => {navigator.clipboard.writeText(coupon)}} className="text-xs sm:text-sm">Скопировать</Button>
             </div>
           )}
-          <Button onClick={() => handleThanksOpenChange(false)} className="mt-2 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl">Закрыть</Button>
+          <Button onClick={() => handleThanksOpenChange(false)} className="mt-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-xl text-sm sm:text-base">Закрыть</Button>
         </DialogContent>
       </Dialog>
     </>
