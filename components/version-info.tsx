@@ -18,7 +18,8 @@ export function VersionInfo() {
       try {
         console.log('🔍 Загружаем версию...')
         // Относительный путь, чтобы корректно работать под basePath '/ausn'
-        const response = await fetch('version.json')
+        // Добавляем timestamp для обхода кэша браузера
+        const response = await fetch(`version.json?v=${Date.now()}`)
         console.log('📡 Ответ сервера:', response.status, response.ok)
         if (response.ok) {
           const data = await response.json()

@@ -15,7 +15,8 @@ export function VersionBadge() {
   useEffect(() => {
     const fetchVersion = async () => {
       try {
-        const response = await fetch('/version.json')
+        // Добавляем timestamp для обхода кэша браузера
+        const response = await fetch(`/version.json?v=${Date.now()}`)
         if (response.ok) {
           const data = await response.json()
           setVersionInfo(data)

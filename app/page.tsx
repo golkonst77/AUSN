@@ -33,8 +33,8 @@ export default function HomePage() {
   return (
     <main id="home-page" className="min-h-screen">
       <Hero />
-      <Technologies />
       <Calculator />
+      <Technologies />
       <Reviews />
       <News />
 

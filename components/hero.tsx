@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useCruiseClick } from "@/hooks/use-cruise-click"
-import { DollarSign, AlertTriangle, CheckCircle, MessageCircle, Shield } from "lucide-react"
+import { DollarSign, AlertTriangle, CheckCircle, MessageCircle, Shield, ArrowDown } from "lucide-react"
 import AnimatedContent from './AnimatedContent'
 import homepageConfig from "@/data/homepage.json"
 import { PDFViewerModal } from "@/components/pdf-viewer-modal"
@@ -291,6 +291,20 @@ export function Hero() {
               </>
             ) : null}
           </h1>
+
+          {/* CTA кнопка для перехода к калькулятору */}
+          <Button
+            size="lg"
+            onClick={() => handleFeatureClick("calc", "Калькулятор")}
+            className="w-full sm:w-auto mb-4 md:mb-6 h-auto whitespace-normal text-center px-6 sm:px-10 md:px-12 py-6 md:py-7 text-lg md:text-xl font-extrabold leading-snug rounded-2xl bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600 text-white shadow-[0_14px_32px_rgba(0,0,0,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(0,0,0,0.55)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300/70 focus-visible:shadow-[0_22px_55px_rgba(0,0,0,0.55)] active:translate-y-0 active:shadow-[0_10px_24px_rgba(0,0,0,0.40)] flex items-center gap-2"
+            style={{
+              boxShadow: "0 14px 32px rgba(0,0,0,0.45)",
+              filter: "drop-shadow(0 10px 22px rgba(0,0,0,0.28))",
+            }}
+          >
+            Рассчитать свою выгоду на АУСН за 30 секунд
+            <ArrowDown className="h-5 w-5 md:h-6 md:w-6 animate-bounce" />
+          </Button>
 
           {button.show && (
             <Button

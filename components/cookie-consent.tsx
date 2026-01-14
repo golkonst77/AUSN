@@ -137,17 +137,15 @@ export function CookieConsent({ ymId = '105967457' }: CookieConsentProps) {
   }
 
   const acceptAll = async () => {
-    // Сохраняем согласие на основе выбора пользователя в баннере
+    // Принимаем всё по умолчанию
     const consents = {
       essential: true,
-      analytics: settings.analytics, // Берём из state чекбокса
-      marketing: settings.marketing,
+      analytics: true,
+      marketing: true,
     }
     await setConsent(consents)
     setShowBanner(false)
-    if (settings.analytics) {
-      loadYandexMetrika()
-    }
+    loadYandexMetrika()
   }
 
   const rejectAll = async () => {
@@ -185,56 +183,54 @@ export function CookieConsent({ ymId = '105967457' }: CookieConsentProps) {
 
   return (
     <>
-      {/* Cookie Banner */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t-4 border-[#2180A2] shadow-[0_-4px_12px_rgba(0,0,0,0.1)] p-5 z-[9999] animate-slide-up">
+      {/* Cookie Banner - Компактный для мобильных */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-[#2180A2] shadow-[0_-4px_12px_rgba(0,0,0,0.1)] p-2 md:p-5 z-[9999] animate-slide-up">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-start gap-5 flex-wrap">
-            <div className="flex-1 min-w-[250px]">
-              <div className="font-semibold text-base text-[#134252] mb-2">🍪 Согласие на обработку данных и аналитику</div>
-              <div className="text-sm text-gray-600 leading-relaxed mb-3">
-                Мы используем <strong>Яндекс.Метрику</strong> и cookie-файлы для анализа работы сайта, улучшения услуг и соблюдения
-                требований законодательства РФ.
-                <br />
-                Подробнее см.{" "}
+          {/* Мобильная версия - компактный вертикальный layout */}
+          <div className="flex flex-col md:flex-row md:items-start gap-2 md:gap-5">
+            {/* Текст - скрыт на мобильных, показан на desktop */}
+            <div className="hidden md:block flex-1">
+              <div className="font-semibold text-sm md:text-base text-[#134252] mb-1 md:mb-2">🍪 Согласие на обработку данных</div>
+              <div className="text-xs md:text-sm text-gray-600 leading-relaxed">
+                Мы используем <strong>Яндекс.Метрику</strong> и cookie-файлы.{" "}
                 <button
                   onClick={() => setShowPolicyModal(true)}
                   className="text-[#2180A2] font-medium hover:text-[#1d748f] hover:underline transition-colors"
                 >
-                  Политику конфиденциальности
+                  Подробнее
                 </button>
-                .
               </div>
-
-              {/* Чекбокс для явного согласия */}
-              <label className="flex items-start gap-2 cursor-pointer p-2 hover:bg-gray-50 rounded-md transition-colors">
-                <input
-                  type="checkbox"
-                  checked={settings.analytics}
-                  onChange={(e) => setSettings({ ...settings, analytics: e.target.checked })}
-                  className="mt-0.5 w-4 h-4 text-[#2180A2] bg-gray-100 border-gray-300 rounded focus:ring-[#2180A2] focus:ring-2"
-                />
-                <span className="text-sm text-gray-700">Я согласен на использование аналитических cookies (Яндекс.Метрика) для улучшения работы сайта</span>
-              </label>
             </div>
 
-            <div className="flex gap-2 flex-wrap items-start">
+            {/* Кнопки */}
+            <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
+              {/* Большая яркая кнопка "Принять всё" */}
               <button
                 onClick={acceptAll}
-                className="px-5 py-2.5 bg-[#2180A2] text-white rounded-md text-sm font-medium hover:bg-[#1d748f] transition-all whitespace-nowrap"
+                className="w-full md:w-auto px-4 md:px-8 py-3 md:py-3 bg-[#2180A2] text-white rounded-lg text-base md:text-lg font-bold hover:bg-[#1d748f] transition-all shadow-lg hover:shadow-xl"
               >
-                Сохранить выбор
+                Принять всё
               </button>
+              
+              {/* Маленькая серая кнопка "Отклонить" с текстом под ней */}
+              <div className="flex flex-col items-center md:items-start">
+                <button
+                  onClick={rejectAll}
+                  className="px-3 md:px-4 py-1.5 md:py-2 bg-transparent text-gray-500 text-xs md:text-sm font-normal hover:text-gray-700 transition-all"
+                >
+                  Отклонить
+                </button>
+                <span className="text-[10px] md:text-xs text-gray-400 mt-0.5 text-center md:text-left">
+                  Продолжить без персонализированной рекламы
+                </span>
+              </div>
+              
+              {/* Кнопка "Настройки" - только на desktop */}
               <button
                 onClick={openModal}
-                className="px-5 py-2.5 bg-transparent text-[#2180A2] border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-100 hover:border-[#2180A2] transition-all whitespace-nowrap"
+                className="hidden md:flex px-4 py-2 bg-transparent text-[#2180A2] border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-100 hover:border-[#2180A2] transition-all whitespace-nowrap"
               >
                 ⚙ Настройки
-              </button>
-              <button
-                onClick={rejectAll}
-                className="px-5 py-2.5 bg-transparent text-gray-600 border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-100 transition-all whitespace-nowrap"
-              >
-                Отклонить
               </button>
             </div>
           </div>

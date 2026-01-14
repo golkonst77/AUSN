@@ -5,6 +5,31 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и проект следует [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [1.3.21] - 2026-01-14 - Автоматическое обновление версии
+
+### Изменено
+- Автоматическое обновление версии до 1.3.21
+- Обновлен package.json
+
+## [1.3.20] - 2026-01-14 - Обновление компонентов и добавление RiskBlobButton
+
+### Добавлено
+- Компонент RiskBlobButton (standalone версия)
+- Документация для RiskBlobButton (README.md)
+- HTML пример использования RiskBlobButton
+
+### Изменено
+- Обновлен компонент cookie-consent
+- Обновлен компонент hero
+- Обновлен компонент calculator-ausn/Calculator
+- Обновлены компоненты version-badge и version-info
+- Обновлен app/page.tsx и app/layout.tsx
+- Версия проекта обновлена до 1.3.19
+- Обновлен package.json
+
+### Техническое
+- Build номер: 1319
+
 ## [1.3.17] - 2026-01-13 - Автоматическое обновление версии
 
 ### Изменено

@@ -213,6 +213,13 @@ export function Calculator() {
       </div>
 
       <div className="container mx-auto max-w-7xl py-8 md:py-12 px-4">
+        {/* Призыв к действию над калькулятором */}
+        <div className="text-center mb-6 md:mb-8">
+          <p className="text-lg md:text-xl text-gray-700 font-medium">
+            Введи доход и количество сотрудников — увидишь экономию за год
+          </p>
+        </div>
+        
         {/* Row 1: Форма + Информер лимитов */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="lg:col-span-2">
