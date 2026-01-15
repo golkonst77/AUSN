@@ -179,6 +179,15 @@ export function Calculator() {
 
   // Обработка запроса консультации
   const handleConsultation = () => {
+    // Отправляем событие в Яндекс.Метрику при клике на кнопку консультации
+    if (typeof window !== 'undefined' && (window as any).ym) {
+      try {
+        (window as any).ym(105967457, 'reachGoal', 'consult_click')
+        console.log('[Calculator] Яндекс.Метрика: событие consult_click отправлено')
+      } catch (error) {
+        console.error('[Calculator] Ошибка отправки события в Яндекс.Метрику:', error)
+      }
+    }
     // Здесь можно открыть форму контакта или модальное окно
     // Используем window для прокрутки к контактам
     const contactsSection = document.getElementById('contacts')

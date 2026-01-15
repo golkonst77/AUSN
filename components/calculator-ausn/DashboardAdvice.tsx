@@ -119,7 +119,21 @@ export function DashboardAdvice({ results, eligibility }: DashboardAdviceProps) 
 
           {/* Кнопка консультации */}
           <div className="pt-4">
-            <Link href="/support" passHref>
+            <Link 
+              href="/support" 
+              passHref
+              onClick={() => {
+                // Отправляем событие в Яндекс.Метрику при клике на кнопку консультации
+                if (typeof window !== 'undefined' && (window as any).ym) {
+                  try {
+                    (window as any).ym(105967457, 'reachGoal', 'consult_click')
+                    console.log('[DashboardAdvice] Яндекс.Метрика: событие consult_click отправлено')
+                  } catch (error) {
+                    console.error('[DashboardAdvice] Ошибка отправки события в Яндекс.Метрику:', error)
+                  }
+                }
+              }}
+            >
               <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                 Получить консультацию специалиста
               </Button>

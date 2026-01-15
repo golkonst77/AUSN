@@ -52,6 +52,15 @@ export function DashboardComparisonTable({ results }: DashboardComparisonTablePr
   }
 
   const handleConsultation = () => {
+    // Отправляем событие в Яндекс.Метрику при клике на кнопку консультации
+    if (typeof window !== 'undefined' && (window as any).ym) {
+      try {
+        (window as any).ym(105967457, 'reachGoal', 'consult_click')
+        console.log('[DashboardComparisonTable] Яндекс.Метрика: событие consult_click отправлено')
+      } catch (error) {
+        console.error('[DashboardComparisonTable] Ошибка отправки события в Яндекс.Метрику:', error)
+      }
+    }
     const contactsSection = document.getElementById('contacts')
     if (contactsSection) {
       contactsSection.scrollIntoView({ behavior: 'smooth' })
