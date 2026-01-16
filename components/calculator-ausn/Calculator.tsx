@@ -273,6 +273,41 @@ export function Calculator() {
             {/* Row 2: Итоговая аналитика */}
             <DashboardSummary results={results} />
 
+            {/* Social proof */}
+            <div className="rounded-3xl bg-white/95 border border-slate-200 shadow-[0_10px_30px_rgba(2,6,23,0.06)] p-6 md:p-8">
+              <div className="text-center space-y-4">
+                <p className="text-lg md:text-xl font-semibold text-gray-900">
+                  Это реальная экономия для 500+ компаний в 2025 году
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm md:text-base text-gray-700">
+                  <div className="rounded-2xl bg-slate-50 px-4 py-3">«Сразу увидели выгоду. Быстро и понятно»</div>
+                  <div className="rounded-2xl bg-slate-50 px-4 py-3">«Рекомендация совпала с расчетами бухгалтера»</div>
+                  <div className="rounded-2xl bg-slate-50 px-4 py-3">«Рассчитали за минуту, цифры прозрачные»</div>
+                </div>
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && (window as any).ym) {
+                        try {
+                          ;(window as any).ym(105967457, 'reachGoal', 'consult_click')
+                          console.log('[Calculator] Яндекс.Метрика: событие consult_click отправлено')
+                        } catch (error) {
+                          console.error('[Calculator] Ошибка отправки события в Яндекс.Метрику:', error)
+                        }
+                      }
+                      const contactsSection = document.getElementById('contacts')
+                      if (contactsSection) {
+                        contactsSection.scrollIntoView({ behavior: 'smooth' })
+                      }
+                    }}
+                    className="px-5 py-2 rounded-xl font-semibold text-white bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 shadow-lg hover:shadow-xl transition-all"
+                  >
+                    Консультация бесплатная, 15 минут по телефону
+                  </button>
+                </div>
+              </div>
+            </div>
+
             {/* Row 3: Графики и диаграммы */}
             <DashboardChartsNew 
               results={results} 
